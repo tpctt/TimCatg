@@ -54,10 +54,11 @@
         
 //        NSData *certificateData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"https.www.taoqian123.com" ofType:@"cer"]];
 //        securityPolicy.pinnedCertificates = [NSSet setWithObject: certificateData];
-        securityPolicy.validatesDomainName = YES;
-        securityPolicy.allowInvalidCertificates = NO;
         
-        shareNetworkClient.securityPolicy = securityPolicy;
+        securityPolicy.validatesDomainName = NO;
+        securityPolicy.allowInvalidCertificates = YES;
+        
+        shareNetworkClient.securityPolicy = [AFSecurityPolicy defaultPolicy];
         
         
         

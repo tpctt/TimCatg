@@ -19,6 +19,8 @@ IB_DESIGNABLE
 
 @property (assign,nonatomic) IBInspectable NSInteger maxLength; ///最大长度
 @property (assign,nonatomic) IBInspectable BOOL hideLine ; ///下划线到两边的间隔
+@property (assign,nonatomic) IBInspectable CGFloat distanceLeading ; ///下划线到两边的间隔
+@property (assign,nonatomic) IBInspectable CGFloat lineHeight ; ///下划线到两边的间隔
 
 -(void)setLeftText:(NSString*)string;
 

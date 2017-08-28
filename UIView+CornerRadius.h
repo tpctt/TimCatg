@@ -14,4 +14,7 @@ IB_DESIGNABLE
 @property (strong,nonatomic) IBInspectable UIColor *timlineColor;
 @property (assign,nonatomic) IBInspectable CGFloat timLineWidth;
 
+
+- (UIView*)subViewOfClassName:(NSString*)className;
+
 @end

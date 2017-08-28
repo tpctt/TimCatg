@@ -12,65 +12,60 @@
 @property (strong,nonatomic) UILabel *leftLabel;
 @property (strong,nonatomic) UIButton *securityBtn;
 
+@property (strong,nonatomic) UIView *lineLayer;
+
 @end
 
 @implementation  UITextFieldSubline
 -(void)commandInitRac
 {
+    self.lineHeight = 0.5;
     
+    self.layer.masksToBounds = 1;
     self.autocorrectionType = UITextAutocorrectionTypeNo;
-
-    
     self.clearButtonMode = UITextFieldViewModeWhileEditing;
     
-    
-    UIButton *closeBtn = [[UIButton alloc] initNavigationButton:[UIImage  imageNamed:@"s_icon_Close"]];
-    closeBtn.bounds = CGRectMake(0, 0, 44, 44);
-    
-    self.rightViewMode = UITextFieldViewModeWhileEditing;
-    self.rightView = closeBtn;
-    
     @weakify(self);
-    [[closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside]subscribeNext:^(id x) {
-     
-        @strongify(self);
-
-        self.text = Nil;
-        
-    }];
-    
-    
-
+    /*
     [[[RACSignal combineLatest:@[RACObserve(self,isPhone),self.rac_textSignal ]]distinctUntilChanged]
      subscribeNext:^(id x) {
          
          @strongify(self);
-         
          ///避免中文输入法 导致的 占位符不能replace bug
          if(self.isPhone){
-             [self dealTextLength];
 
          }
-         
-         
-         
-    }];
+         [self dealTextLength];
 
+    }];
+    */
     
     [[[NSNotificationCenter defaultCenter]rac_addObserverForName:UITextFieldTextDidEndEditingNotification object:self]subscribeNext:^(id x) {
         
         @strongify(self);
-
+        [self dealTextLength];
+        
+    }];
+    
+    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:UITextFieldTextDidChangeNotification object:self]subscribeNext:^(id x) {
+        
+        @strongify(self);
         [self dealTextLength];
         
     }];
     
     
+    self.lineLayer = [UIView new];
+    
 }
-
 
 -(void)dealTextLength
 {
+    UITextRange *markedRange = [self markedTextRange];
+    if (markedRange) {
+        return;
+    }
+
     if (self.isPhone && self.text.length>11) {
         self.text = [self.text substringToIndex:11];
         
@@ -78,7 +73,6 @@
         if ( self.text.length > self.maxLength) {
             self.text = [self.text substringToIndex: self.maxLength ];
         }
-        
     }
 }
 
@@ -102,7 +96,7 @@
     if (!self.leftLabel) {
         self.leftLabel = [[UILabel alloc] init];
         self.leftLabel.font = [UIFont   systemFontOfSize:14 ];
-        self.leftLabel.textColor = TextColor ;
+        self.leftLabel.textColor = k_color_C4 ;
         
         self.leftView = self.leftLabel;
         self.leftViewMode = UITextFieldViewModeAlways;
@@ -113,6 +107,8 @@
 }
 -(void)setSecureTextEntry:(BOOL)secureTextEntry{
     [super setSecureTextEntry:secureTextEntry];
+    self.clearsOnBeginEditing = secureTextEntry;
+    
     if (self.showEyeForPwd) {
         
         if (!self.securityBtn) {
@@ -123,6 +119,8 @@
             
             [self.securityBtn setImage:img forState:0];
             [self.securityBtn setImage:imgSelect forState:UIControlStateSelected];
+            
+            [self.securityBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
             
             self.rightView = self.securityBtn;
             self.rightViewMode = UITextFieldViewModeAlways;
@@ -157,11 +155,25 @@
     [super drawRect:rect];
     
     if(!self.hideLine  ){
-        CGContextRef context = UIGraphicsGetCurrentContext();
         
-        CGContextSetFillColorWithColor(context, self.lineColor?self.lineColor.CGColor: [UIColor fromHexValue:0xcccccc].CGColor);
+        CGRect rect2 = CGRectMake(_distanceLeading, CGRectGetHeight(self.frame) - 0.5, CGRectGetWidth(self.frame)-2*_distanceLeading,  self.lineHeight );
         
-        CGContextFillRect(context, CGRectMake(0, CGRectGetHeight(self.frame) - 0.5, CGRectGetWidth(self.frame), 0.5));
+        self.lineLayer.frame = rect2;
+        self.lineLayer.backgroundColor = self.lineColor?:[UIColor colorWithString:@"0xcccccc"];
+        //self.lineColor;
+        [self addSubview:self.lineLayer];
+        self.clipsToBounds = NO;
+        
+//        CGContextRef context = UIGraphicsGetCurrentContext();
+//        
+//        CGContextSetFillColorWithColor(context, self.lineColor?self.lineColor.CGColor: [UIColor fromHexValue:0xcccccc].CGColor);
+//        
+//        
+//        CGContextFillRect(context,rect2 );
+        
+
+    }else{
+        [self.lineLayer removeFromSuperview];
         
     }
     
