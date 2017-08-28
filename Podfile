@@ -5,9 +5,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, "8.0"
 
-target:taoqianbao  do
-    #link_with 'Taoqianbao','daidian'
-#use_frameworks!
+target:target_name  do
+
 
 pod 'EasyIOS','~>2.4.0'
 #pod 'EasyIOS/Core', :git=>'https://github.com/tpctt/EasyIOS.git'
