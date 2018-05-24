@@ -96,7 +96,7 @@
     if (!self.leftLabel) {
         self.leftLabel = [[UILabel alloc] init];
         self.leftLabel.font = [UIFont   systemFontOfSize:14 ];
-        self.leftLabel.textColor = k_color_C4 ;
+        self.leftLabel.textColor = HEX_RGB(0x333333) ;
         
         self.leftView = self.leftLabel;
         self.leftViewMode = UITextFieldViewModeAlways;
@@ -178,6 +178,18 @@
     }
     
     
+}
+-(void)setShowEmptyView:(BOOL)showEmptyView
+{
+    
+    _showEmptyView = showEmptyView;
+    
+    if (showEmptyView) {
+        
+        UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 10)];
+        self.leftView = view;
+        self.leftViewMode = UITextFieldViewModeAlways;
+    }
 }
 
 /*

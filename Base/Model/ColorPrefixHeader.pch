@@ -1,0 +1,58 @@
+//
+//  ColorPrefixHeader.pch
+//  KehuFox
+//
+//  Created by Zhang Wuyang on 2017/3/24.
+//  Copyright © 2017年 timRabbit. All rights reserved.
+//
+
+#ifndef ColorPrefixHeader_pch
+#define ColorPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define  k_COLOR_FFFFFF 0xffffff
+#define  k_COLOR_222222 0x222222
+#define  k_COLOR_FF4D4D 0xff4d4d
+#define  k_COLOR_666666 0x666666
+#define  k_COLOR_FF6600 0xff6600
+#define  k_COLOR_225599 0x225599
+#define  k_COLOR_EDEDED 0xededed
+#define  k_COLOR_F9EAE1 0xf9eae1
+#define  k_COLOR_212121 0x212121
+#define  k_COLOR_999999 0x999999
+#define  k_COLOR_FFAA00 0xffaa00
+#define  k_COLOR_FFA563 0xffa563
+#define  k_COLOR_2260FF 0x2260ff
+#define  k_COLOR_A7A7A9 0xa7a7a9
+#define  k_COLOR_0ECC17 0x0ecc17
+
+
+
+
+//2.0
+
+#define K_Color_MainText HEX_RGB(0x292725)
+
+#define SELECT_COLOR(_r,_g,_b,_alpha) [UIColor colorWithRed:_r / 255.0 green:_g / 255.0 blue:_b / 255.0 alpha:_alpha]
+#define SCREEN_SIZE [[UIScreen mainScreen] bounds].size
+/** define:屏幕的宽高比 */
+#define CURRENT_SIZE(_size) _size / 375.0 * SCREEN_SIZE.width
+/**
+ *define:颜色设置的宏定义
+ *prame: _r -- RGB的红
+ *parma: _g -- RGB的绿
+ *parma: _g -- RGB的蓝
+ *parma: _alpha -- RGB的透明度
+ */
+
+/** 弱引用 */
+#define WEAKSELF __weak typeof(self) weakSelf = self;
+
+
+#define  k_FontSize_12 [UIFont systemFontOfSize:12]
+#define  k_FontSize_14 [UIFont systemFontOfSize:14]
+#define  k_FontSize_16 [UIFont systemFontOfSize:16]
+#define  k_FontSize_18 [UIFont systemFontOfSize:18]
+#endif /* ColorPrefixHeader_pch */
+

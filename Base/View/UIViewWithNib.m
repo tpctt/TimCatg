@@ -14,19 +14,19 @@
 @end
 
 @implementation UIViewWithNib
--(void)dealloc
-{
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd) , self );
-}
+
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         [self commonInit];
-
+        
+        
     }
     return self;
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -40,9 +40,12 @@
 
 -(void)awakeFromNib
 {
-
+    
     [super awakeFromNib];
+    
+    
     [self commonInit];
+    
     
 }
 
@@ -53,22 +56,23 @@
 
 ///////////////////
 -(void)commonInit{
-    if (!self.view) {
-        [[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:self  options:nil];
-        [self addSubview:self.view];
+    
+    
+    [[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:self  options:nil];
+    
+    [self addSubview:self.view];
+    
+    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.top.equalTo(self.mas_top);
-            make.left.equalTo(self.mas_left);
-            make.right.equalTo(self.mas_right);
-            make.bottom.equalTo(self.mas_bottom);
-            
-        }];
+        make.top.equalTo(self.mas_top);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
         
-        [self subCommonInit];
         
-    }
+    }];
+ 
+    [self subCommonInit];
     
 }
 /*

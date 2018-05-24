@@ -32,5 +32,8 @@
 + (NSArray *)loadPerson;
 + (NSArray *)getList;
 
+///
++(BOOL)isPhoneX;
+
 
 @end

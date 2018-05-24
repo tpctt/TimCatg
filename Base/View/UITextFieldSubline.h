@@ -16,6 +16,7 @@ IB_DESIGNABLE
 @property (strong,nonatomic) IBInspectable UIColor *lineColor; ///下划线颜色
 @property (strong,nonatomic) IBInspectable NSNumber *isPhone; ///是否是手机号输入,
 @property (assign,nonatomic) IBInspectable BOOL showEyeForPwd; ///是否显示rightView 为eye图像
+@property (nonatomic, assign) BOOL showEmptyView;
 
 @property (assign,nonatomic) IBInspectable NSInteger maxLength; ///最大长度
 @property (assign,nonatomic) IBInspectable BOOL hideLine ; ///下划线到两边的间隔
